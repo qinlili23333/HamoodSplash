@@ -85,7 +85,7 @@
             } else {
                 let picFile = await picCache.match(selected.pic);
                 if (!picFile) {
-                    if (!skip && config.forceSkipPreload) {
+                    if (config.forceSkipPreload) {
                         document.body.insertAdjacentHTML("beforeend", HamoodDiv);
                         let picDiv = document.getElementById("hamoodSplash");
                         picDiv.src = selected.pic;
