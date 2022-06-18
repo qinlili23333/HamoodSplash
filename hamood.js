@@ -25,6 +25,7 @@
         updateStorage();
     };
     const updateSplashAsync = async url => {
+        await sleep(60000);
         let splash = await (await fetch(url).catch(() => { console.error("Failed to load Hamood data."); })).json().catch(() => { console.error("Failed to load Hamood data."); });
         storageData.cachedSplash = splash;
         storageData.cachedUrl = url;
@@ -87,8 +88,18 @@
                 if (!picFile) {
                     if (config.forceSkipPreload) {
                         document.body.insertAdjacentHTML("beforeend", HamoodDiv);
+                        if (config.showLoadingTip) {
+                            document.getElementById("hamoodLoading").style.display = "block";
+                        };
                         let picDiv = document.getElementById("hamoodSplash");
-                        picDiv.src = selected.pic;
+                        document.getElementById("hamoodText").innerText = selected.text;
+                        let cacheRequest = await fetch(selected.pic)
+                        if (cacheRequest.status < 300) {
+                            picCache.put(selected.pic, cacheRequest.clone());
+                        } else {
+                            console.warn("Splash url returned code " + cacheRequest.status + ". Check your url.");
+                        };
+                        picDiv.src = URL.createObjectURL(await cacheRequest.blob());;
                         picDiv.onload = () => {
                             picDiv.style.opacity = 1;
                             document.getElementById("hamoodLoading").style.display = "none";
@@ -98,9 +109,6 @@
                             waitToExit(selected.showTime);
                         };
                         document.getElementById("hamoodText").innerText = selected.text;
-                        if (config.showLoadingTip) {
-                            document.getElementById("hamoodLoading").style.display = "block";
-                        };
                     } else {
                         skip = true;
                         let cacheRequest = await fetch(selected.pic)
