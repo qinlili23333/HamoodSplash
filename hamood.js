@@ -112,8 +112,12 @@
                             picDiv.style.opacity = 1;
                             document.getElementById("hamoodLoading").style.display = "none";
                             storageData.showHistory[selected.name].repeat++;
-                            storageData.showHistory[selected.name].dailyRepeat++;
-                            storageData.showHistory[selected.name].lastDay = new Date().toLocaleDateString();
+                            if (storageData.showHistory[selected.name].lastDay == new Date().toLocaleDateString()) {
+                                storageData.showHistory[selected.name].dailyRepeat++;
+                            } else {
+                                storageData.showHistory[selected.name].lastDay = new Date().toLocaleDateString()
+                                storageData.showHistory[selected.name].dailyRepeat = 1;
+                            };
                             waitToExit(selected.showTime);
                         };
                         document.getElementById("hamoodText").innerText = selected.text;
@@ -135,8 +139,12 @@
                     picDiv.onload = () => {
                         picDiv.style.opacity = 1;
                         storageData.showHistory[selected.name].repeat++;
-                        storageData.showHistory[selected.name].dailyRepeat++;
-                        storageData.showHistory[selected.name].lastDay = new Date().toLocaleDateString();
+                        if (storageData.showHistory[selected.name].lastDay == new Date().toLocaleDateString()) {
+                            storageData.showHistory[selected.name].dailyRepeat++;
+                        } else {
+                            storageData.showHistory[selected.name].lastDay = new Date().toLocaleDateString()
+                            storageData.showHistory[selected.name].dailyRepeat = 1;
+                        };
                         waitToExit(selected.showTime);
                     };
                     let textDiv = document.getElementById("hamoodText");
