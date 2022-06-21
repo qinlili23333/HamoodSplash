@@ -52,11 +52,11 @@
     };
     window.Hamood = {
         init: async (config, skip) => {
-            if (!performance.getEntriesByType("navigation")[0].type == "navigation") {
+            if (!(performance.getEntriesByType("navigation")[0].type == "navigate")) {
                 console.log("Not new open page, skip Hamood.");
                 skip = true;
             }
-            console.log("Hamood Version:0.1.3");
+            console.log("Hamood Version:0.1.4");
             let startTime = Date.now();
             if (!storageData.cachedSplash || !storageData.cachedUrl == config.data) {
                 let splash = await (await fetch(config.data).catch(() => { console.error("Failed to load Hamood data."); })).json().catch(() => { console.error("Failed to load Hamood data."); });
