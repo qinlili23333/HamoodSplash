@@ -19,10 +19,13 @@
         closeHamood();
     };
     const closeHamood = async () => {
-        document.getElementById("hamood").style.opacity = 0;
-        await sleep(500);
-        document.body.removeChild(document.getElementById("hamood"));
-        updateStorage();
+        if (!Hamood.closed) {
+            document.getElementById("hamood").style.opacity = 0;
+            await sleep(500);
+            document.body.removeChild(document.getElementById("hamood"));
+            updateStorage();
+            Hamood.closed = true;
+        }
     };
     const updateSplashAsync = async url => {
         await sleep(60000);
@@ -56,7 +59,7 @@
                 console.log("Not new open page, skip Hamood.");
                 skip = true;
             }
-            console.log("Hamood Version:0.1.4");
+            console.log("Hamood Version:0.1.5");
             let startTime = Date.now();
             if (!storageData.cachedSplash || !storageData.cachedUrl == config.data) {
                 let splash = await (await fetch(config.data).catch(() => { console.error("Failed to load Hamood data."); })).json().catch(() => { console.error("Failed to load Hamood data."); });
@@ -164,6 +167,7 @@
                 storageData.showHistory = {};
             };
             updateStorage();
-        }
+        },
+        closed: false
     };
 })()
