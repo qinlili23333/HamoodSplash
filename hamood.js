@@ -28,7 +28,7 @@
         }
     };
     const updateSplashAsync = async url => {
-        await sleep(60000);
+        await sleep(20000);
         let splash = await (await fetch(url).catch(() => { console.error("Failed to load Hamood data."); })).json().catch(() => { console.error("Failed to load Hamood data."); });
         storageData.cachedSplash = splash;
         storageData.cachedUrl = url;
