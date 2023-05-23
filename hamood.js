@@ -52,6 +52,7 @@
                 console.warn("Splash url returned code " + cacheRequest.status + ". Check your url.");
             };
         }
+        updateStorage();
     };
     window.Hamood = {
         init: async (config, skip) => {
@@ -59,7 +60,7 @@
                 console.log("Not new open page, skip Hamood.");
                 skip = true;
             }
-            console.log("Hamood Version:0.1.5");
+            console.log("Hamood Version:0.1.6");
             let startTime = Date.now();
             if (!storageData.cachedSplash || !storageData.cachedUrl == config.data) {
                 let splash = await (await fetch(config.data).catch(() => { console.error("Failed to load Hamood data."); })).json().catch(() => { console.error("Failed to load Hamood data."); });
