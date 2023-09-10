@@ -246,12 +246,13 @@
                                 } else {
                                     let orientationDelta = Math.min(Math.abs(alpha - initialOrientation.alpha), Math.abs(alpha - 360 - initialOrientation.alpha), Math.abs(alpha + 360 - initialOrientation.alpha)) + Math.min(Math.abs(beta - initialOrientation.beta), Math.abs(beta + 360 - initialOrientation.beta), Math.abs(beta - 360 - initialOrientation.beta)) + Math.min(Math.abs(gamma - initialOrientation.gamma), Math.abs(gamma + 180 - initialOrientation.gamma), Math.abs(gamma - 180 - initialOrientation.gamma));
                                     console.log(orientationDelta);
-                                    if (orientationDelta > 200) {
-                                        window.open(selected.link, "_blank");
+                                    if (orientationDelta > 100) {
+                                        window.removeEventListener('deviceorientation', handleOrientation);
                                         closeHamood();
-                                        orientationDelta = 200;
+                                        orientationDelta = 100;
+                                        window.open(selected.link, "_blank");
                                     };
-                                    shakeDiv.style.width = orientationDelta * fullWidth / 200 + "px";
+                                    shakeDiv.style.width = orientationDelta * fullWidth / 100 + "px";
                                 }
                             }
                         }
